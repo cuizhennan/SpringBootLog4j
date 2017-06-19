@@ -1,9 +1,11 @@
-package test.java.demo;
+package demo;
 
+import com.google.common.base.Joiner;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @Use
@@ -15,8 +17,8 @@ public class Chinese2PY {
         Hanyu hanyu = new Hanyu();
         // 中英文混合的一段文字
         // 荆溪白石出，Hello 天寒红叶稀。Android 山路元无雨，What's up? 空翠湿人衣。
-        // String str = "这个是一个长群长长的群哈哈哈中哈";
-        String str = "荆溪白石出，Hello 天寒红叶稀。Android 山路元无雨，What's up? 空翠湿人衣";
+        String str = "这个是一个长群长长的群哈哈哈中哈";
+        // String str = "荆溪白石出，Hello 天寒红叶稀。Android 山路元无雨，What's up? 空翠湿人衣";
         String strPinyin = hanyu.getStringPinYin(str);
         System.out.println(strPinyin);
     }
@@ -46,7 +48,11 @@ class Hanyu {
             return null;
 
         // 只取一个发音，如果是多音字，仅取第一个发音
-        return pinyin[0];
+        System.out.println(CollectionUtils.arrayToList(pinyin));
+        // return pinyin[0];
+        String result = Joiner.on("$").join(CollectionUtils.arrayToList(pinyin));
+        System.out.println(result);
+        return result;
     }
 
     // 转换一个字符串
